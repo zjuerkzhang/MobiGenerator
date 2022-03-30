@@ -1,0 +1,12 @@
+{
+    "rssFeeds": [
+        {
+            "update": "20220330064900",
+            "url": "https://fullrss.ddns.net/rss/RSS_PengpaiComments.xml"
+        },
+        {
+            "update": "20220330000000",
+            "url": "http://fullrss.ddns.net/rss/RSS_PengpaiUserArticlesForKindle.xml"
+        }
+    ]
+}
