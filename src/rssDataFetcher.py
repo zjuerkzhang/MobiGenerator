@@ -100,11 +100,12 @@ if __name__ == "__main__":
         chapter = fetchRssData(rssFeed)
         if chapter != None and len(chapter['sections']) > 0:
             data['chapters'].append(chapter)
+            rssFeed['title'] = chapter['title']
     if len(data['chapters']) == 0:
         rssLogger.info("No html files are generated")
         exit(1)
 
-    htmlFilesGenerator.buildHtmls(data)
+    htmlFilesGenerator.buildHtmls(data, 'rss')
     with open(configPath, 'w') as f:
         json.dump(configData, f, indent = 4)
     exit(0)

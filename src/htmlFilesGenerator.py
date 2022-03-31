@@ -86,10 +86,9 @@ def downloadImages(mapList, outputDir, imgSubdir):
         except:
             htmlLogger.error("exception occurs during downloading [%s]" % img['srcUrl'])
 
-def buildHtmls(data, outputDir = ''):
+def buildHtmls(data, prefix = ''):
     buildDate = datetime.today().strftime("%Y-%m-%d-%H-%M")
-    if outputDir == '':
-        outputDir = "%s/../%s" % (selfDir, buildDate)
+    outputDir = "%s/../%s-%s" % (selfDir, prefix, buildDate)
     if not os.path.exists(outputDir):
         os.mkdir(outputDir)
     if not os.path.isdir(outputDir):
@@ -102,7 +101,8 @@ def buildHtmls(data, outputDir = ''):
         renderAndWrite(templateEnv, mapElem['template'], data, mapElem['target'], outputDir)
     for chapter in data['chapters']:
         renderAndWrite(templateEnv, 'chapter.html', chapter, '%s.html' % chapter['number'], outputDir)
-        downloadImages(chapter['imgDlMap'], outputDir, chapter['imgSubdir'])
+        if 'imgDlMap' in chapter.keys() and 'imgSubdir' in chapter.keys():
+            downloadImages(chapter['imgDlMap'], outputDir, chapter['imgSubdir'])
     return True
 
 def renderAndWrite(env, templateName, context, targetFilename, outputDir):

@@ -4,25 +4,48 @@ filePath=$0
 fileDir=`dirname $filePath`
 cd $fileDir
 
-targetDir="/var/www/html/publicFiles/mobiBooks/"
-mkdir -p $targetDir
+configFileViewDir="/var/www/html/privateFiles/"
+rssMobiDir="/var/www/html/publicFiles/mobiBooks/"
+bookMobiDir="/var/www/html/privateFiles/mobiBooks/"
+mkdir -p $rssMobiDir
+mkdir -p $bookMobiDir
 mkdir -p log
 
-rm -rf 202*
-
+rm -rf rss-202*
+rm -rf bluebook-202*
+echo "===== RSS Mobi Generation ====="
 python3 src/rssDataFetcher.py
 ret=$?
-ret=0
-if [ $ret -ne 0 ]
+if [ $ret -eq 0 ]
 then
-    echo "`date`: no html files generated"
-    exit $ret
+    htmlDir=`ls -l|awk '{print $NF}'|grep -P "rss-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}"|tail -n 1`
+    echo $htmlDir
+    cp assets/*.css ./$htmlDir/
+    ./kindlegen -c1 ./$htmlDir/target.opf
+
+    mv ./$htmlDir/target.mobi $rssMobiDir/$htmlDir.mobi
+    #rm -rf $htmlDir
+else
+    echo "`date`: no html files for RSS generated"
 fi
 
-htmlDir=`ls -l|awk '{print $NF}'|grep -P "\d{4}-\d{2}-\d{2}-\d{2}-\d{2}"|tail -n 1`
-#echo $htmlDir
-cp assets/*.css ./$htmlDir/
-./kindlegen -c1 ./$htmlDir/target.opf
+echo "===== Bluebook Mobi Generation ====="
+python3 src/bluebookDataFetcher.py
+ret=$?
+if [ $ret -eq 0 ]
+then
+    htmlDir=`ls -l|awk '{print $NF}'|grep -P "bluebook-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}"|tail -n 1`
+    echo $htmlDir
+    cp assets/*.css ./$htmlDir/
+    ./kindlegen -c1 ./$htmlDir/target.opf
 
-mv ./$htmlDir/target.mobi $targetDir/$htmlDir.mobi
-#rm -rf $htmlDir
+    mv ./$htmlDir/target.mobi $bookMobiDir/$htmlDir.mobi
+    #rm -rf $htmlDir
+else
+    echo "`date`: no html files for RSS generated"
+fi
+
+cp config/config.json $configFileViewDir/
+
+
+exit 0

@@ -1,12 +1,60 @@
 {
-    "rssFeeds": [
+    "bluebooks": [
         {
-            "url": "https://fullrss.ddns.net/rss/RSS_PengpaiComments.xml",
-            "update": "20220330064900"
+            "title": "\u65b0\u795e\u96d5\u4e94\u7edd",
+            "generated": true,
+            "url": "https://bloghz.ddns.net/b/static/books/1d80aa2ec272f863571da54cbcff092a/main.html"
         },
         {
-            "url": "http://fullrss.ddns.net/rss/RSS_PengpaiUserArticlesForKindle.xml",
-            "update": "20220330100000"
+            "title": "\u5584\u826f\u7684\u7f8e\u4eba\u59bb",
+            "generated": true,
+            "url": "https://bloghz.ddns.net/b/static/books/51f81b2f24725070a72388ff2ab94eb2/main.html"
+        },
+        {
+            "title": "\u5584\u826f\u7684\u7f8e\u4eba\u59bb-\u539f\u7248",
+            "generated": true,
+            "url": "https://bloghz.ddns.net/b/static/books/269ca863e0172e6bc048a76971ddc1af/main.html"
+        },
+        {
+            "title": "\u540e\u5988\u8d64\u88f8\u88f8\u7684\u8bf1\u60d1",
+            "generated": true,
+            "url": "https://bloghz.ddns.net/b/static/books/41f46373028436e476aa2387c0688dc5/main.html"
+        },
+        {
+            "title": "\u540e\u5988\u548c\u5988\u5988",
+            "generated": true,
+            "url": "https://bloghz.ddns.net/b/static/books/24e5d4ff9338eb36c7c41e891f76f128/main.html"
+        },
+        {
+            "title": "\u4e09\u5341\u800c\u5df2",
+            "generated": true,
+            "url": "https://bloghz.ddns.net/b/static/books/bb745e9ec5ff10bb1e2cacb42273ce70/main.html"
+        },
+        {
+            "title": "\u4ece\u7238\u7238\u624b\u91cc\u62a2\u593a\u5988\u5988\u5a07\u5ae9\u7684\u5c0f\u903c",
+            "generated": true,
+            "url": "https://bloghz.ddns.net/b/static/books/5dca7963949e2234673922db8d471b5b/main.html"
+        },
+        {
+            "title": "\u6211\u7684\u5cb3\u6bcd\u82cf\u6c9b\u771f",
+            "generated": true,
+            "url": "https://bloghz.ddns.net/b/static/books/a059d4d063f9a5e1d937f66e2a791707/main.html"
+        },
+        {
+            "title": "\u96ea\u767d\u7684\u5c41\u80a1",
+            "generated": true,
+            "url": "https://bloghz.ddns.net/b/static/books/ab4bda1f1965eb3378e31b346d9343af/main.html"
+        }
+    ],
+    "rssFeeds": [
+        {
+            "update": "20220330064900",
+            "url": "https://fullrss.ddns.net/rss/RSS_PengpaiComments.xml"
+        },
+        {
+            "update": "20220331054500",
+            "title": "\u6f8e\u6e43\u53f7Kindle\u9605\u8bfb\u5408\u96c6",
+            "url": "http://fullrss.ddns.net/rss/RSS_PengpaiUserArticlesForKindle.xml"
         }
     ]
 }
