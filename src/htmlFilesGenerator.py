@@ -80,7 +80,7 @@ def downloadImages(mapList, outputDir, imgSubdir):
                 htmlLogger.info("Fail to download image from [%s]" % img['srcUrl'])
                 continue
             imgFilePath = '/'.join([imgSubdirPath, img['dstFile']])
-            print(imgFilePath)
+            #print(imgFilePath)
             with open(imgFilePath, 'wb') as f:
                 f.write(r.content)
         except:
