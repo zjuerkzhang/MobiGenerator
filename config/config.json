@@ -44,17 +44,52 @@
             "title": "\u96ea\u767d\u7684\u5c41\u80a1",
             "generated": true,
             "url": "https://bloghz.ddns.net/b/static/books/ab4bda1f1965eb3378e31b346d9343af/main.html"
+        },
+        {
+            "url": "https://bloghz.ddns.net/b/static/books/4f9c30de218eb4cb08c22b27d6d2426a/main.html",
+            "title": "\u7231\u4e0a\u4ec7\u4eba\u59bb",
+            "generated": true
+        },
+        {
+            "url": "https://bloghz.ddns.net/b/static/books/f4cd5d70889be3afc9e13d2600417ce3/main.html",
+            "title": "\u5bfb\u79e6\u4e4b\u4e2d\u77ed\u7bc7\u96c6",
+            "generated": true
+        },
+        {
+            "url": "https://bloghz.ddns.net/b/static/books/b72c9342e143dbbb568c01531836bab4/main.html",
+            "title": "\u6211\u6210\u4e86\u7236\u4eb2\u4e0e\u59bb\u5b50\u7684\u6708\u8001",
+            "generated": true
+        },
+        {
+            "url": "https://bloghz.ddns.net/b/static/books/f7fb927140a6a9bf9b40a3f5bab13cf0/main.html",
+            "title": "\u6df1\u6df1\u5e08\u5f92\u60c5",
+            "generated": true
+        },
+        {
+            "url": "https://bloghz.ddns.net/b/static/books/b1016aad8076993c163083e22dd1a05f/main.html",
+            "title": "\u9ed1\u4e1d\u889c\u5988\u5988",
+            "generated": true
+        },
+        {
+            "url": "https://bloghz.ddns.net/b/static/books/93efd86385246bc687f61b0f8208bdfc/main.html",
+            "title": "\u5f81\u670d\u7f8e\u8273\u62a4\u58eb\u5988\u5988",
+            "generated": true
+        },
+        {
+            "url": "https://bloghz.ddns.net/b/static/books/9b9a93d27f80ed9a9cf186ef0c5c4058/main.html",
+            "title": "\u5988\u5988\u4e0e\u6211\u7684\u5468\u5e74\u5e86",
+            "generated": true
         }
     ],
     "rssFeeds": [
         {
             "update": "20220330064900",
-            "url": "https://fullrss.ddns.net/rss/RSS_PengpaiComments.xml"
+            "url": "http://192.168.119.47/rss/RSS_PengpaiComments.xml"
         },
         {
             "update": "20220331054500",
             "title": "\u6f8e\u6e43\u53f7Kindle\u9605\u8bfb\u5408\u96c6",
-            "url": "http://fullrss.ddns.net/rss/RSS_PengpaiUserArticlesForKindle.xml"
+            "url": "http://192.168.119.47/rss/RSS_PengpaiUserArticlesForKindle.xml"
         }
     ]
 }

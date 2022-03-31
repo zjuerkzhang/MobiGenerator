@@ -4,11 +4,8 @@ filePath=$0
 fileDir=`dirname $filePath`
 cd $fileDir
 
-configFileViewDir="/var/www/html/privateFiles/"
-rssMobiDir="/var/www/html/publicFiles/mobiBooks/"
-bookMobiDir="/var/www/html/privateFiles/mobiBooks/"
-mkdir -p $rssMobiDir
-mkdir -p $bookMobiDir
+targetDirPath="./mobi"
+mkdir -p $targetDirPath
 mkdir -p log
 
 rm -rf rss-202*
@@ -21,9 +18,11 @@ then
     htmlDir=`ls -l|awk '{print $NF}'|grep -P "rss-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}"|tail -n 1`
     echo $htmlDir
     cp assets/*.css ./$htmlDir/
-    ./kindlegen -c1 ./$htmlDir/target.opf
+    scp -r "./$htmlDir" debian:~/mobi/
+    ssh debian "cd ~/mobi/; ./kindlegen -c1 ./$htmlDir/target.opf;"
+    scp debian:~/mobi/$htmlDir/target.mobi targetDirPath/$htmlDir.mobi
+    ssh debian "rm -rf ~/mobi/$htmlDir"
 
-    mv ./$htmlDir/target.mobi $rssMobiDir/$htmlDir.mobi
     #rm -rf $htmlDir
 else
     echo "`date`: no html files for RSS generated"
@@ -37,15 +36,16 @@ then
     htmlDir=`ls -l|awk '{print $NF}'|grep -P "bluebook-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}"|tail -n 1`
     echo $htmlDir
     cp assets/*.css ./$htmlDir/
-    ./kindlegen -c1 ./$htmlDir/target.opf
-
-    mv ./$htmlDir/target.mobi $bookMobiDir/$htmlDir.mobi
+    scp -r "./$htmlDir" debian:~/mobi/
+    ssh debian "cd ~/mobi/; ./kindlegen -c1 ./$htmlDir/target.opf;"
+    scp debian:~/mobi/$htmlDir/target.mobi $targetDirPath/$htmlDir.mobi
+    ssh debian "rm -rf ~/mobi/$htmlDir"
     #rm -rf $htmlDir
 else
     echo "`date`: no html files for RSS generated"
 fi
 
-cp config/config.json $configFileViewDir/
+cp config/config.json $targetDirPath/
 
 
 exit 0
