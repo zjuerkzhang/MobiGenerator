@@ -33,14 +33,17 @@ python3 src/bluebookDataFetcher.py
 ret=$?
 if [ $ret -eq 0 ]
 then
-    htmlDir=`ls -l|awk '{print $NF}'|grep -P "bluebook-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}"|tail -n 1`
-    echo $htmlDir
-    cp assets/*.css ./$htmlDir/
-    scp -r "./$htmlDir" debian:~/mobi/
-    ssh debian "cd ~/mobi/; ./kindlegen -c1 ./$htmlDir/target.opf;"
-    scp debian:~/mobi/$htmlDir/target.mobi $targetDirPath/$htmlDir.mobi
-    ssh debian "rm -rf ~/mobi/$htmlDir"
-    #rm -rf $htmlDir
+    htmlDirs=`ls -l|awk '{print $NF}'|grep -P "bluebook-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}"`
+    for htmlDir in $htmlDirs
+    do
+        echo $htmlDir
+        cp assets/*.css ./$htmlDir/
+        scp -r "./$htmlDir" debian:~/mobi/
+        ssh debian "cd ~/mobi/; ./kindlegen -c1 ./$htmlDir/target.opf;"
+        scp debian:~/mobi/$htmlDir/target.mobi $targetDirPath/$htmlDir.mobi
+        ssh debian "rm -rf ~/mobi/$htmlDir"
+        #rm -rf $htmlDir
+    done
 else
     echo "`date`: no html files for RSS generated"
 fi

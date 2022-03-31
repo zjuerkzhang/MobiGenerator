@@ -74,6 +74,32 @@ def getNovelStructureLinks(mainUrl):
         chapter['sections'].append(section)
     return chapter
 
+def generateForOneBook(bookConf):
+    if "generated" in bookConf.keys() and bookConf["generated"] == True:
+        return False
+    if len(bookConf["books"]) == 0:
+        bookLogger.error("No book url in book config entry: [%s]" % str(bookConf))
+        return False
+    data = {
+        'bookName': "%s %s" % ("短篇合集", datetime.today().strftime("%Y-%m-%d")),
+        'chapters': []
+    }
+    for book in bookConf["books"]:
+        chapter = getNovelStructureLinks(book["url"])
+        if chapter != None and len(chapter['sections']) > 0:
+            data['chapters'].append(chapter)
+            book['title'] = chapter['title']
+    if len(data['chapters']) == 0:
+        bookLogger.info("No html files are generated")
+        return False
+    else:
+        bookConf["generated"] = True
+    if len(bookConf["books"]) == 1 and len(data["chapters"]) == 1:
+        data["bookName"] = data["chapters"][0]["title"]
+    bookConf["title"] = data["bookName"]
+    htmlFilesGenerator.buildHtmls(data, 'bluebook')
+    return True
+
 if __name__ == "__main__":
     configPath = "%s/../config/config.json" % selfDir
     if not os.path.exists(configPath):
@@ -92,23 +118,13 @@ if __name__ == "__main__":
         bookLogger.error("No attribute bluebooks in config file")
         exit(1)
 
-    data = {
-        'bookName': "%s %s" % ("小说合集", datetime.today().strftime("%Y-%m-%d")),
-        'chapters': []
-    }
+    haveBookGenerated = False
     for bookEntry in configData['bluebooks']:
-        if "generated" in bookEntry.keys() and bookEntry["generated"] == True:
-            continue
-        chapter = getNovelStructureLinks(bookEntry["url"])
-        if chapter != None and len(chapter['sections']) > 0:
-            data['chapters'].append(chapter)
-            bookEntry['title'] = chapter['title']
-            bookEntry["generated"] = True
-    if len(data['chapters']) == 0:
-        bookLogger.info("No html files are generated")
+        ret = generateForOneBook(bookEntry)
+        if ret:
+            haveBookGenerated = ret
+    if not haveBookGenerated:
         exit(1)
-
-    htmlFilesGenerator.buildHtmls(data, 'bluebook')
     with open(configPath, 'w') as f:
         json.dump(configData, f, indent = 4)
     exit(0)
