@@ -1,5 +1,7 @@
 #!/bin/sh
 
+notifierUrl='https://bloghz.ddns.net/cmd/notify/'
+
 filePath=$0
 fileDir=`dirname $filePath`
 cd $fileDir
@@ -20,10 +22,12 @@ then
     cp assets/*.css ./$htmlDir/
     scp -r "./$htmlDir" debian:~/mobi/
     ssh debian "cd ~/mobi/; ./kindlegen -c1 ./$htmlDir/target.opf;"
-    scp debian:~/mobi/$htmlDir/target.mobi targetDirPath/$htmlDir.mobi
+    scp debian:~/mobi/$htmlDir/target.mobi $targetDirPath/$htmlDir.mobi
     ssh debian "rm -rf ~/mobi/$htmlDir"
-
     #rm -rf $htmlDir
+
+    msgBody=" TYPE: RSS\n STATE: [Successful]\n TARGET: $htmlDir.mobi"
+    curl -s -X POST -d "{\"subject\": \"Mobi\", \"content\": \"$msgBody\", \"channel\": \"telegram\"}" $notifierUrl --header "Content-Type: application/json"
 else
     echo "`date`: no html files for RSS generated"
 fi
@@ -43,6 +47,10 @@ then
         scp debian:~/mobi/$htmlDir/target.mobi $targetDirPath/$htmlDir.mobi
         ssh debian "rm -rf ~/mobi/$htmlDir"
         #rm -rf $htmlDir
+
+        msgBody=" TYPE: Book\n STATE: [Successful]\n TARGET: $htmlDir.mobi"
+        curl -s -X POST -d "{\"subject\": \"Mobi\", \"content\": \"$msgBody\", \"channel\": \"telegram\"}" $notifierUrl --header "Content-Type: application/json"
+
     done
 else
     echo "`date`: no html files for RSS generated"

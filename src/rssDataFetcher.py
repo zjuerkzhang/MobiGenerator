@@ -9,6 +9,13 @@ import htmlFilesGenerator
 selfDir = os.path.dirname(os.path.abspath(__file__))
 rssLogger = MyLogger.getLogger("rssDataFetcher")
 
+def getExtensionOfImage(url):
+    wxImageScheme = "?wx_fmt="
+    if url.find(wxImageScheme) > 0:
+        return url.split(wxImageScheme)[-1]
+    else:
+        return url.split(".")[-1]
+
 def fillImgMapping(content, imgSubdir, startImgIdx):
     newContent = content
     mapList = []
@@ -18,10 +25,11 @@ def fillImgMapping(content, imgSubdir, startImgIdx):
         urlRe = re.search("http[s]?://.*?['\"]", imgTagStr)
         if not urlRe:
             rssLogger.info("Fail to parse url from img tag [%s]" % imgTagStr)
+            newContent = newContent.replace(imgTagStr, "")
             continue
         url = urlRe.group()[:-1]
         startImgIdx = startImgIdx + 1
-        imgFilename = '.'.join(["%04d" % startImgIdx ,url.split('.')[-1]])
+        imgFilename = '.'.join(["%04d" % startImgIdx, getExtensionOfImage(url)])
         mapList.append({
             'srcUrl': url,
             'dstFile': imgFilename

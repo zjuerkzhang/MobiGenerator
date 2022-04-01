@@ -75,6 +75,7 @@ def downloadImages(mapList, outputDir, imgSubdir):
     os.mkdir(imgSubdirPath)
     for img in mapList:
         try:
+            htmlLogger.debug("<Image Dl>: %s ==> %s/%s" % (img['srcUrl'], imgSubdir, img['dstFile']))
             r = requests.get(img['srcUrl'])
             if r.status_code != 200:
                 htmlLogger.info("Fail to download image from [%s]" % img['srcUrl'])

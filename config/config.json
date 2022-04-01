@@ -111,9 +111,14 @@
             "url": "http://192.168.119.47/rss/RSS_PengpaiComments.xml"
         },
         {
-            "update": "20220331054500",
+            "update": "20220331234700",
             "title": "\u6f8e\u6e43\u53f7Kindle\u9605\u8bfb\u5408\u96c6",
             "url": "http://192.168.119.47/rss/RSS_PengpaiUserArticlesForKindle.xml"
+        },
+        {
+            "update": "20220331120000",
+            "url": "http://192.168.119.47/rss/RSS_WechatUserArticles.xml",
+            "title": "\u5fae\u4fe1\u516c\u4f17\u53f7"
         }
     ]
 }
