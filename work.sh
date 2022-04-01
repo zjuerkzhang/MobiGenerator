@@ -1,10 +1,17 @@
 #!/bin/sh
 
-notifierUrl='https://bloghz.ddns.net/cmd/notify/'
-
 filePath=$0
 fileDir=`dirname $filePath`
 cd $fileDir
+
+notifyUrlFiile="./config/notify.url"
+
+if [ -e $notifyUrlFiile ]
+then
+    notifierUrl=`cat $notifyUrlFiile`
+else
+    notifierUrl=""
+fi
 
 targetDirPath="./mobi"
 mkdir -p $targetDirPath
@@ -26,8 +33,11 @@ then
     ssh debian "rm -rf ~/mobi/$htmlDir"
     #rm -rf $htmlDir
 
-    msgBody=" TYPE: RSS\n STATE: [Successful]\n TARGET: $htmlDir.mobi"
-    curl -s -X POST -d "{\"subject\": \"Mobi\", \"content\": \"$msgBody\", \"channel\": \"telegram\"}" $notifierUrl --header "Content-Type: application/json"
+    if [ -n $notifierUrl ]
+    then
+        msgBody=" TYPE: RSS\n STATE: [Successful]\n TARGET: $htmlDir.mobi"
+        curl -s -X POST -d "{\"subject\": \"Mobi\", \"content\": \"$msgBody\", \"channel\": \"telegram\"}" $notifierUrl --header "Content-Type: application/json"
+    fi
 else
     echo "`date`: no html files for RSS generated"
 fi
@@ -48,9 +58,11 @@ then
         ssh debian "rm -rf ~/mobi/$htmlDir"
         #rm -rf $htmlDir
 
-        msgBody=" TYPE: Book\n STATE: [Successful]\n TARGET: $htmlDir.mobi"
-        curl -s -X POST -d "{\"subject\": \"Mobi\", \"content\": \"$msgBody\", \"channel\": \"telegram\"}" $notifierUrl --header "Content-Type: application/json"
-
+        if [ -n $notifierUrl ]
+        then
+            msgBody=" TYPE: Book\n STATE: [Successful]\n TARGET: $htmlDir.mobi"
+            curl -s -X POST -d "{\"subject\": \"Mobi\", \"content\": \"$msgBody\", \"channel\": \"telegram\"}" $notifierUrl --header "Content-Type: application/json"
+        fi
     done
 else
     echo "`date`: no html files for RSS generated"
