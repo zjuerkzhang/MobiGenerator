@@ -12,6 +12,15 @@ gTemplateTargetMap = [
     {'template': 'opf.xml', 'target': 'target.opf'},
     {'template': 'toc.html', 'target': 'toc.html'},
 ]
+gHeaders = {
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'Accept-Encoding': 'gzip, deflate',
+    'Accept-Language': 'zh-Hans-CN,zh-CN;q=0.9,zh;q=0.8,en;q=0.7,en-GB;q=0.6,en-US;q=0.5,ja;q=0.4',
+    'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.53 Safari/537.36 Edg/80.0.361.33',
+    'Connection' : 'keep-alive',
+    'Cache-Control': 'no-cache',
+    'Host': 'user.guancha.cn'
+}
 
 '''
 Input data format:
@@ -73,17 +82,27 @@ def extendData(data, buildDate):
 def downloadImages(mapList, outputDir, imgSubdir):
     imgSubdirPath = '/'.join([outputDir, 'images', imgSubdir])
     os.mkdir(imgSubdirPath)
+    session = requests.Session()
     for img in mapList:
         try:
             htmlLogger.debug("<Image Dl>: %s ==> %s/%s" % (img['srcUrl'], imgSubdir, img['dstFile']))
-            r = requests.get(img['srcUrl'])
-            if r.status_code != 200:
-                htmlLogger.info("Fail to download image from [%s]" % img['srcUrl'])
+            imgContent = None
+            r = session.get(img['srcUrl'])
+            if r.status_code == 200:
+                imgContent = r.content
+            else:
+                htmlLogger.info("Fail to download image from [%s], retry with headers again ..." % img['srcUrl'])
+                r = session.get(img['srcUrl'], headers = gHeaders)
+                if r.status_code == 200:
+                    imgContent = r.content
+                else:
+                    htmlLogger.info("Fail to download image from [%s] with headers again" % img['srcUrl'])
+            if imgContent == None:
                 continue
             imgFilePath = '/'.join([imgSubdirPath, img['dstFile']])
             #print(imgFilePath)
             with open(imgFilePath, 'wb') as f:
-                f.write(r.content)
+                f.write(imgContent)
         except:
             htmlLogger.error("exception occurs during downloading [%s]" % img['srcUrl'])
 

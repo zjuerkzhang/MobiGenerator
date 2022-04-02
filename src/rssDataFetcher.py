@@ -10,11 +10,20 @@ selfDir = os.path.dirname(os.path.abspath(__file__))
 rssLogger = MyLogger.getLogger("rssDataFetcher")
 
 def getExtensionOfImage(url):
+    validExtRange = ['jpg', 'png', 'gif', 'bmp', 'jpeg', 'tif', 'exif']
+    extension = ''
     wxImageScheme = "?wx_fmt="
     if url.find(wxImageScheme) > 0:
-        return url.split(wxImageScheme)[-1]
+        extension = url.split(wxImageScheme)[-1]
+    if url.find(".guancha.cn/"):
+        extension = url.split('?')[0].split('.')[-1]
     else:
-        return url.split(".")[-1]
+        extension = url.split(".")[-1]
+
+    if extension.lower() in validExtRange:
+        return extension
+    else:
+        return ''
 
 def fillImgMapping(content, imgSubdir, startImgIdx):
     newContent = content
@@ -28,8 +37,12 @@ def fillImgMapping(content, imgSubdir, startImgIdx):
             newContent = newContent.replace(imgTagStr, "")
             continue
         url = urlRe.group()[:-1]
+        ext = getExtensionOfImage(url)
+        if ext == "":
+            newContent = newContent.replace(imgTagStr, "")
+            continue
         startImgIdx = startImgIdx + 1
-        imgFilename = '.'.join(["%04d" % startImgIdx, getExtensionOfImage(url)])
+        imgFilename = '.'.join(["%04d" % startImgIdx, ext])
         mapList.append({
             'srcUrl': url,
             'dstFile': imgFilename
@@ -53,7 +66,7 @@ def fetchRssData(rssConfig):
     feed = feedparser.parse(rssConfig['url'])
     if len(feed['entries']) == 0:
         return None
-    imgSubdir = str(hash(feed.feed.title))
+    imgSubdir = "rss" + str(hash(feed.feed.title))
     chapter = {
         'title': feed.feed.title,
         'sections': [],
