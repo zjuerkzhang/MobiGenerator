@@ -107,12 +107,12 @@
     ],
     "rssFeeds": [
         {
-            "update": "20220402035900",
+            "update": "20220405115100",
             "url": "http://192.168.119.47/rss/RSS_PengpaiComments.xml",
             "title": "\u6f8e\u6e43\u8bc4\u8bba"
         },
         {
-            "update": "20220402053500",
+            "update": "20220405084700",
             "title": "\u6f8e\u6e43\u53f7Kindle\u9605\u8bfb\u5408\u96c6",
             "url": "http://192.168.119.47/rss/RSS_PengpaiUserArticlesForKindle.xml"
         },
@@ -125,6 +125,11 @@
             "update": "20220402010000",
             "url": "http://192.168.119.47/rss/RSS_GuanChaUserArticles.xml",
             "title": "\u89c2\u5bdf\u8005\u7f51\u4e13\u680f"
+        },
+        {
+            "update": "20220406023640",
+            "url": "https://bloghz.ddns.net/ppf/wechatRss.xml",
+            "title": "\u5fae\u4fe1\u516c\u4f17\u53f7\u624b\u52a8\u63a8\u9001\u5408\u96c6"
         }
     ]
 }

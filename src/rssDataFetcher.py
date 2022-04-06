@@ -14,8 +14,8 @@ def getExtensionOfImage(url):
     extension = ''
     wxImageScheme = "?wx_fmt="
     if url.find(wxImageScheme) > 0:
-        extension = url.split(wxImageScheme)[-1]
-    if url.find(".guancha.cn/"):
+        extension = url.split(wxImageScheme)[-1].split('&')[0]
+    elif url.find(".guancha.cn/"):
         extension = url.split('?')[0].split('.')[-1]
     else:
         extension = url.split(".")[-1]
@@ -39,6 +39,7 @@ def fillImgMapping(content, imgSubdir, startImgIdx):
         url = urlRe.group()[:-1]
         ext = getExtensionOfImage(url)
         if ext == "":
+            rssLogger.info("Fail to get image extension from img tag [%s]" % imgTagStr)
             newContent = newContent.replace(imgTagStr, "")
             continue
         startImgIdx = startImgIdx + 1
