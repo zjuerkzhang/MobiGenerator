@@ -92,7 +92,8 @@
                 }
             ],
             "generated": true,
-            "title": "\u77ed\u7bc7\u5408\u96c6 2022-03-31"
+            "title": "\u77ed\u7bc7\u5408\u96c6 2022-04-08 16-22",
+            "filename": "/home/pi/github/MobiGenerator/src/../bluebook-2022-04-08-16-23.mobi"
         },
         {
             "books": [
@@ -102,7 +103,23 @@
                 }
             ],
             "generated": true,
-            "title": "\u6211\u6210\u4e86\u7236\u4eb2\u4e0e\u59bb\u5b50\u7684\u6708\u8001"
+            "title": "\u6211\u6210\u4e86\u7236\u4eb2\u4e0e\u59bb\u5b50\u7684\u6708\u8001",
+            "filename": "/home/pi/github/MobiGenerator/src/../bluebook-2022-04-08-16-26.mobi"
+        },
+        {
+            "books": [
+                {
+                    "url": "https://bloghz.ddns.net/b/static/books/f4cd5d70889be3afc9e13d2600417ce3/main.html",
+                    "title": "\u5bfb\u79e6\u4e4b\u4e2d\u77ed\u7bc7\u96c6"
+                },
+                {
+                    "url": "https://bloghz.ddns.net/b/static/books/1d80aa2ec272f863571da54cbcff092a/main.html",
+                    "title": "\u65b0\u795e\u96d5\u4e94\u7edd"
+                }
+            ],
+            "generated": true,
+            "title": "\u77ed\u7bc7\u5408\u96c6 2022-04-08 16-26",
+            "filename": "/home/pi/github/MobiGenerator/src/../bluebook-2022-04-08-16-27.mobi"
         }
     ],
     "rssFeeds": [
@@ -112,7 +129,7 @@
             "title": "\u6f8e\u6e43\u8bc4\u8bba"
         },
         {
-            "update": "20220405084700",
+            "update": "20220406042000",
             "title": "\u6f8e\u6e43\u53f7Kindle\u9605\u8bfb\u5408\u96c6",
             "url": "http://192.168.119.47/rss/RSS_PengpaiUserArticlesForKindle.xml"
         },
@@ -127,7 +144,7 @@
             "title": "\u89c2\u5bdf\u8005\u7f51\u4e13\u680f"
         },
         {
-            "update": "20220406023640",
+            "update": "20220406053121",
             "url": "https://bloghz.ddns.net/ppf/wechatRss.xml",
             "title": "\u5fae\u4fe1\u516c\u4f17\u53f7\u624b\u52a8\u63a8\u9001\u5408\u96c6"
         }

@@ -81,7 +81,7 @@ def generateForOneBook(bookConf):
         bookLogger.error("No book url in book config entry: [%s]" % str(bookConf))
         return False
     data = {
-        'bookName': "%s %s" % ("短篇合集", datetime.today().strftime("%Y-%m-%d")),
+        'bookName': "%s %s" % ("短篇合集", datetime.today().strftime("%Y-%m-%d %H-%M")),
         'chapters': []
     }
     for book in bookConf["books"]:
@@ -97,7 +97,8 @@ def generateForOneBook(bookConf):
     if len(bookConf["books"]) == 1 and len(data["chapters"]) == 1:
         data["bookName"] = data["chapters"][0]["title"]
     bookConf["title"] = data["bookName"]
-    htmlFilesGenerator.buildHtmls(data, 'bluebook')
+    outputPath = htmlFilesGenerator.buildHtmls(data, 'bluebook')
+    bookConf["filename"] = "%s.mobi" % (outputPath.split('/')[-1])
     return True
 
 if __name__ == "__main__":

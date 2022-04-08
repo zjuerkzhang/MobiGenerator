@@ -68,7 +68,7 @@ makeBluebookMobi() {
             fi
         done
     else
-        echo "`date`: no html files for RSS generated"
+        echo "`date`: no html files for bluebook generated"
     fi
 }
 
@@ -88,6 +88,6 @@ then
     fi
 fi
 
-cp config/config.json $targetDirPath/
+#cp config/config.json $targetDirPath/
 
 exit 0

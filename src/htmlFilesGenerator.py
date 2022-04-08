@@ -123,7 +123,7 @@ def buildHtmls(data, prefix = ''):
         renderAndWrite(templateEnv, 'chapter.html', chapter, '%s.html' % chapter['number'], outputDir)
         if 'imgDlMap' in chapter.keys() and 'imgSubdir' in chapter.keys():
             downloadImages(chapter['imgDlMap'], outputDir, chapter['imgSubdir'])
-    return True
+    return outputDir
 
 def renderAndWrite(env, templateName, context, targetFilename, outputDir):
     """Render `templateName` with `context` and write the result in the file
