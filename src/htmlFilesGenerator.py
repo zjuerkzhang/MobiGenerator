@@ -107,7 +107,7 @@ def downloadImages(mapList, outputDir, imgSubdir):
             htmlLogger.error("exception occurs during downloading [%s]" % img['srcUrl'])
 
 def buildHtmls(data, prefix = ''):
-    buildDate = datetime.today().strftime("%Y-%m-%d-%H-%M")
+    buildDate = datetime.today().strftime("%Y-%m-%d-%H-%M-%S")
     outputDir = "%s/../%s-%s" % (selfDir, prefix, buildDate)
     if not os.path.exists(outputDir):
         os.mkdir(outputDir)

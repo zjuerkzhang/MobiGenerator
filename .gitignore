@@ -6,3 +6,4 @@ bluebook-202*
 log
 *.pyc
 config/notify.url
+utils/*.txt

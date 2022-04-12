@@ -88,6 +88,7 @@ then
     fi
 fi
 
+./utils/generateHtml.sh
 #cp config/config.json $targetDirPath/
 
 exit 0
