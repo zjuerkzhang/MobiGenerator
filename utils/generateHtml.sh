@@ -59,7 +59,7 @@ do
     echo "<tr>" >> $newHtmlPath
     title=`echo "$titleLines"|head -n $i|tail -n 1`
     link=`echo "$configContent"|jq -r --arg x "$title" '.bluebooks|.[]|select(.title == $x)|.filename'|awk -F '/' '{print "./"$NF}'`
-    echo "<td><a href='$link'>$title</a></td>" >> $newHtmlPath
+    echo "<td valign='top'><a href='$link'>$title</a></td>" >> $newHtmlPath
     echo "<td>" >> $newHtmlPath
     chapterLines=`echo "$configContent"|jq -r --arg x "$title" '.bluebooks|.[]|select(.title == $x)|.books|.[]|.title'|sort`
     chapterCount=`echo "$chapterLines"|wc -l`
@@ -81,3 +81,14 @@ echo "</table></div>" >> $newHtmlPath
 
 echo "</body></html>" >> $newHtmlPath
 mv $newHtmlPath $htmlPath
+
+bwgFiles=`ssh bwg "ls -l /var/www/html/privateFiles/mobi/" |grep -v -P "^(total)|(总用量)"| awk '{print $NF}'`
+localFiles=`ls -l ../mobi/|grep -v -P "^(total)|(总用量)"| awk '{print $NF}'`
+for localFile in $localFiles
+do
+    found=`echo "$bwgFiles"|grep "$localFile"`
+    if [ -z "$found" ]
+    then
+        scp ../mobi/$localFile bwg:/var/www/html/privateFiles/mobi/
+    fi
+done
