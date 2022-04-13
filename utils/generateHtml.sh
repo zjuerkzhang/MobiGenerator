@@ -92,3 +92,12 @@ do
         scp ../mobi/$localFile bwg:/var/www/html/privateFiles/mobi/
     fi
 done
+
+for bwgFile in $bwgFiles
+do
+    found=`echo "$localFiles"|grep "$bwgFile"`
+    if [ -z "$found" ]
+    then
+        ssh bwg "rm -f /var/www/html/privateFiles/mobi/$bwgFile"
+    fi
+done
