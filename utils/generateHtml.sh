@@ -8,6 +8,23 @@ configPath="../config/config.json"
 htmlPath="../mobi/index.html"
 hiddenHtmlPath="../mobi/hidden.html"
 
+purgeOldRssFiles()
+{
+    today=`date +%d`
+    if [ $today -lt 10 ]
+    then
+        return 0
+    fi
+    thisMonthFilePattern="rss-`date +%Y-%m-`"
+
+    rssMobisToPurge=`ls -l ../mobi|awk '{print $NF}'|grep -P "rss-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}"|grep -v "$thisMonthFilePattern"`
+    echo "remove old rss files: $rssMobisToPurge"
+    for rss in $rssMobisToPurge
+    do
+        rm -f ../mobi/$rss
+    done
+}
+
 generateHtmlBorderHeader()
 {
     targetHtmlPath=$1
@@ -99,6 +116,7 @@ generateHtmlBorderTail()
     echo "</body></html>" >> $targetHtmlPath
 }
 
+purgeOldRssFiles
 generateHtmlBorderHeader $htmlPath.new
 generateRssContent $htmlPath.new
 generateEbookContent $htmlPath.new
