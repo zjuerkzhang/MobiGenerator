@@ -63,7 +63,7 @@ generateEbookContent()
     echo "<h1>Book</h1>" >> $targetHtmlPath
     echo "<div><table border='2' width='800px' height='50px'>" >> $targetHtmlPath
     echo "<tr><th width='40%'>书名</th><th></th></tr>" >> $targetHtmlPath
-    books=`ls -l ../mobi/|grep -P "\.mobi$"|awk '{print $NF}'|grep -v -P "^(rss)|(bluebook)"`
+    books=`ls -l ../mobi/|grep -P "\.(mobi)|(azw3)$"|awk '{print $NF}'|grep -v -P "^(rss)|(bluebook)"`
     for b in $books
     do
         echo "<tr>" >> $targetHtmlPath

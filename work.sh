@@ -28,7 +28,7 @@ makeRssMobi() {
         echo $htmlDir
         cp assets/*.css ./$htmlDir/
         scp -r "./$htmlDir" debian:~/mobi/
-        ssh debian "cd ~/mobi/; ./kindlegen -c1 ./$htmlDir/target.opf;"
+        ssh debian "cd ~/mobi/; ./kindlegen -verbose -c1 ./$htmlDir/target.opf;"
         scp debian:~/mobi/$htmlDir/target.mobi $targetDirPath/$htmlDir.mobi
         ssh debian "rm -rf ~/mobi/$htmlDir"
         #rm -rf $htmlDir
