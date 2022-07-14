@@ -25,6 +25,21 @@ purgeOldRssFiles()
     done
 }
 
+purgeOldRssFiles2()
+{
+    rssMobiFiles=`ls -l ../mobi|awk '{print $NF}'|grep -P "rss-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}"`
+    latestTenMobiFiles=`echo "$rssMobiFiles"|tail -n 10`
+    for file in $rssMobiFiles
+    do
+        inLatestTenMobiFiles=`echo "$latestTenMobiFiles" |grep -F "$file"`
+        if [ -z "$inLatestTenMobiFiles" ]
+        then
+            echo "$file"
+            rm -f ../mobi/$file
+        fi
+    done
+}
+
 generateHtmlBorderHeader()
 {
     targetHtmlPath=$1
@@ -115,8 +130,7 @@ generateHtmlBorderTail()
     targetHtmlPath=$1
     echo "</body></html>" >> $targetHtmlPath
 }
-
-purgeOldRssFiles
+purgeOldRssFiles2
 generateHtmlBorderHeader $htmlPath.new
 generateRssContent $htmlPath.new
 generateEbookContent $htmlPath.new
